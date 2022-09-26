@@ -11,12 +11,12 @@ class Alien(Sprite):
 
     alien_images = [pg.image.load(f'images/alien{n}.bmp') for n in range(2)]
 
-    alien_images0 = [pg.image.load(f'images/alien0{n}.bmp') for n in range(2)]
-    alien_images1 = [pg.image.load(f'images/alien1{n}.bmp') for n in range(2)]
-    alien_images2 = [pg.image.load(f'images/alien2{n}.bmp') for n in range(2)]
-    alien_images3 = [pg.image.load(f'images/alien3{n}.bmp') for n in range(2)]
+    alien_images0 = [pg.image.load(f'images/alien0{n}.png') for n in range(2)]
+    alien_images1 = [pg.image.load(f'images/alien1{n}.png') for n in range(2)]
+    alien_images2 = [pg.image.load(f'images/alien2{n}.png') for n in range(2)]
+    alien_images3 = [pg.image.load(f'images/alien3{n}.png') for n in range(2)]
 
-    # alien_types = {0: alien_images0, 1 : alien_images1, 2: alien_images2, 3: alien_images3}    
+    alien_types = {0: alien_images0, 1 : alien_images1, 2: alien_images2, 3: alien_images3}    
     alien_timers = {0 : Timer(image_list=alien_images0), 
                    1 : Timer(image_list=alien_images1), 
                    2 : Timer(image_list=alien_images2), 
@@ -37,9 +37,9 @@ class Alien(Sprite):
         self.dying = self.dead = False
         
         # self.timer_normal = Timer(image_list=self.alien_images)   
-        # self.timer_normal = Timer(image_list=self.alien_types[type])
+        self.timer_normal = Timer(image_list=self.alien_types[type])
                       
-        self.timer_normal = Alien.alien_timers[type]              
+        # self.timer_normal = Alien.alien_timers[type]              
         self.timer_explosion = Timer(image_list=Alien.alien_explosion_images, is_loop=False)  
         self.timer = self.timer_normal                                    
 
@@ -85,7 +85,7 @@ class Aliens:
         return number_aliens_x
     def get_number_rows(self, ship_height, alien_height):
         available_space_y = (self.settings.screen_height - (3 * alien_height) - ship_height)
-        number_rows = int(available_space_y / (1 * alien_height))
+        number_rows = int(available_space_y / (1.5 * alien_height))
         return number_rows        
     def reset(self):
         self.aliens.empty()
