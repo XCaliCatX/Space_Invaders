@@ -22,7 +22,7 @@ class Alien(Sprite):
                    2 : Timer(image_list=alien_images2), 
                    3 : Timer(image_list=alien_images3)}    
 
-    alien_explosion_images = [pg.image.load(f'images/explode{n}.png') for n in range(7)]
+    alien_explosion_images = [pg.image.load(f'images/aExplosion{n}.png') for n in range(3)]
 
     def __init__(self, settings, screen, type):
         super().__init__()
