@@ -133,8 +133,6 @@ class Game:
 
 def main():
     g = Game()
-    all_fonts=pg.font.get_fonts()
-    print(all_fonts)
     g.game_intro()
 
 
