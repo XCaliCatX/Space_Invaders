@@ -33,7 +33,7 @@ class Game:
         # light shade of the button 
         color_light = (202,255,112) 
         # dark shade of the button 
-        color_dark = (100,100,100) 
+        color_dark = (100,100,100)
         # stores the width of the 
         # screen into a variable 
         width = self.screen.get_width() 
@@ -43,13 +43,22 @@ class Game:
         # defining a font 
         smallfont = pg.font.SysFont('Corbel',35)
         largefont=pg.font.Font('space_invaders.ttf', 60)
+        point_values = pg.font.Font('space_invaders.ttf',30)
         # rendering a text written in 
-        # this font 
+        # this font
+        #Words
         quit = smallfont.render('quit' , True , color) 
         play = smallfont.render('play' , True , color)
         space = largefont.render('Space', True, white)
         invaders = largefont.render('INVADERS',True, green)
-        
+        #point values
+        equals_400 = point_values.render('= 400',True, green)
+        equals_200 = point_values.render('=200', True, green)
+        equals_100 = point_values.render('=100', True, green)
+        #images
+        aliengreen=pg.image.load("images/alien01.png")
+        alienblue=pg.image.load("images/alien20.png")
+        alienteal = pg.image.load("images/alien10.png")
         while True: 
             for ev in pg.event.get(): 
                 if ev.type == pg.QUIT: 
@@ -80,8 +89,17 @@ class Game:
         # superimposing the text onto our button 
             self.screen.blit(quit , (width/2+40,height/2+(height/4)))
             self.screen.blit(play,(width/2+-140,height/2+(height/4)))
-            self.screen.blit(space,(width/2-120, height/2-250))
-            self.screen.blit(invaders,(width/2-170, height/2-175))
+        #adding title
+            self.screen.blit(space,(width/2-140, height/2-250))
+            self.screen.blit(invaders,(width/2-200, height/2-175))
+        #adding alien images point values
+            self.screen.blit(equals_400,(width/2, height/2+130))
+            self.screen.blit(equals_200,(width/2, height/2+40))
+            self.screen.blit(equals_100,(width/2, height/2-40))
+        #adding alien images
+            self.screen.blit(aliengreen,(width/2-160,height/2+125))
+            self.screen.blit(alienblue,(width/2-165, height/2-50))
+            self.screen.blit(alienteal,(width/2-160, height/2+30))
         # updates the frames of the game 
             pg.display.update() 
         
