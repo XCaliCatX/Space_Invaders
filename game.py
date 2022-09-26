@@ -26,6 +26,7 @@ class Game:
         self.aliens = Aliens(game=self, screen=self.screen, settings=self.settings, lasers=self.lasers, ship=self.ship)
         self.settings.initialize_speed_settings()
     def game_intro(self):
+        self.sound.play_bg()
          # white color 
         color = (0,0,0)
         white= (250,250,250) 
@@ -114,8 +115,7 @@ class Game:
     def game_over(self):
         print('All ships gone: game over!')
         self.sound.gameover()
-        pg.quit()
-        sys.exit()
+        self.game_intro()
 
     def play(self):
         self.sound.play_bg()
