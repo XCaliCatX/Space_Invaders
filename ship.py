@@ -27,8 +27,10 @@ class Ship(Sprite):
         self.shooting = False
         self.dying = False
                 
+        #the first one is for the ship (still image) and the second one is the explosion (animation)
         self.timer_normal = Timer(image_list = Ship.ship_image)
         self.timer_explosion = Timer(image_list = Ship.ship_explosion_images, is_loop=False)
+    
         self.timer = self.timer_normal
     def center_ship(self):
         self.rect.centerx = self.screen_rect.centerx
@@ -36,6 +38,8 @@ class Ship(Sprite):
         return Vector(self.rect.left, self.rect.top)
     def reset(self): 
         self.timer = self.timer_normal
+        # reset the explosion
+        self.timer_explosion.index = 0
         self.vel = Vector()
         self.posn = self.center_ship()
         self.rect.left, self.rect.top = self.posn.x, self.posn.y
@@ -43,14 +47,18 @@ class Ship(Sprite):
 # # TODO: reduce the ships_left, 
 # #       reset the game if ships > 0
 # #       game_over if the ships == 0
+        # Moved into update, otherwise it would dec the ship lives as it was exploding 
+        # self.ships_left -= 1
         self.timer = self.timer_explosion
-        self.ships_left -= 1
+        # so the ship stops and explodes in place
+        # self.vel.y = 0
         print(f'Ship is dead! Only {self.ships_left} ships left')
-        self.game.reset() if self.ships_left > 0 else self.game.game_over()
+        
     def update(self):
-        # Commented out because it isn't doing anything
-       # if self.timer == self.timer_explosion and self.timer.is_expired():
-       #     self.kill()
+        if self.timer == self.timer_explosion and self.timer.is_expired():
+            self.ships_left -= 1
+            self.kill()
+            self.game.reset() if self.ships_left > 0 else self.game.game_over()
         self.posn += self.vel
         self.posn, self.rect = clamp(self.posn, self.rect, self.settings)
         if self.shooting:
