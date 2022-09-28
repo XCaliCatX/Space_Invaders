@@ -37,9 +37,9 @@ class Alien(Sprite):
         self.dying = self.dead = False
         
         # self.timer_normal = Timer(image_list=self.alien_images)   
-        self.timer_normal = Timer(image_list=self.alien_types[type])
+        # self.timer_normal = Timer(image_list=self.alien_types[type])
                       
-        # self.timer_normal = Alien.alien_timers[type]              
+        self.timer_normal = Alien.alien_timers[type]              
         self.timer_explosion = Timer(image_list=Alien.alien_explosion_images, is_loop=False)  
         self.timer = self.timer_normal                                    
 
@@ -130,6 +130,7 @@ class Aliens:
             for alien in collisions:
                 alien.hit()
             self.sb.increment_score()
+        # I tried to so a spritecollideany in here so ship would explode when it hit the fleet, didn't work
     def update(self): 
         self.check_fleet_edges()
         self.check_fleet_bottom()
