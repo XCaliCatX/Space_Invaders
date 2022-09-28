@@ -1,3 +1,4 @@
+from multiprocessing import Barrier
 import pygame as pg
 from settings import Settings
 import game_functions as gf
@@ -7,6 +8,7 @@ from alien import Aliens
 from ship import Ship
 from sound import Sound
 from scoreboard import Scoreboard
+from barrier import Barriers
 import sys
 
 
@@ -19,11 +21,12 @@ class Game:
         pg.display.set_caption("Alien Invasion")
 
         self.sound = Sound(bg_music="sounds/startrek.wav")
-
+        
         self.scoreboard = Scoreboard(game=self)  
         self.lasers = Lasers(settings=self.settings)
         self.ship = Ship(game=self, screen=self.screen, settings=self.settings, sound=self.sound, lasers=self.lasers)
         self.aliens = Aliens(game=self, screen=self.screen, settings=self.settings, lasers=self.lasers, ship=self.ship)
+        self.barriers = Barriers(game=self, settings=self.settings)
         self.settings.initialize_speed_settings()
     def game_intro(self):
         self.sound.play_bg()
@@ -110,11 +113,15 @@ class Game:
         self.lasers.reset()
         self.ship.reset()
         self.aliens.reset()
+        self.barriers.reset()
         # self.scoreboard.reset()
 
     def game_over(self):
         print('All ships gone: game over!')
         self.sound.gameover()
+        # this and line right after are so game can have repeat plays
+        self.reset()
+        self.ship.ships_left = 3
         self.game_intro()
 
     def play(self):
@@ -126,6 +133,7 @@ class Game:
             self.screen.fill(self.settings.bg_color)
             self.ship.update()
             self.aliens.update()
+            self.barriers.update()
             self.lasers.update()
             self.scoreboard.update()
             pg.display.flip()
