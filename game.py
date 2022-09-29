@@ -48,7 +48,10 @@ class Game:
         # defining a font 
         smallfont = pg.font.SysFont('Corbel',35)
         largefont=pg.font.Font('space_invaders.ttf', 60)
+        smallspacefont=pg.font.Font('space_invaders.ttf', 35)
         point_values = pg.font.Font('space_invaders.ttf',30)
+        with open('high_score.txt','r+') as file:
+                high_score = file.read()  
         # rendering a text written in 
         # this font
         #Words
@@ -56,6 +59,8 @@ class Game:
         play = smallfont.render('play' , True , color)
         space = largefont.render('Space', True, white)
         invaders = largefont.render('INVADERS',True, green)
+        high_score_label = smallspacefont.render('High Score: ',True,white)
+        high_score_text = smallspacefont.render(str(high_score), True,green)
         #point values
         equals_400 = point_values.render('= 400',True, green)
         equals_200 = point_values.render('=200', True, green)
@@ -90,13 +95,16 @@ class Game:
                 pg.draw.rect(self.screen,color_light,[width/2-180,(height/2)+(height/4),140,40])
             else: 
                 pg.draw.rect(self.screen,color_dark,[width/2,height/2+(height/4),140,40])
-                pg.draw.rect(self.screen,color_dark,[width/2-180,(height/2)+(height/4),140,40])  
+                pg.draw.rect(self.screen,color_dark,[width/2-180,(height/2)+(height/4),140,40])
+           
         # superimposing the text onto our button 
             self.screen.blit(quit , (width/2+40,height/2+(height/4)))
             self.screen.blit(play,(width/2+-140,height/2+(height/4)))
         #adding title
             self.screen.blit(space,(width/2-140, height/2-250))
             self.screen.blit(invaders,(width/2-200, height/2-175))
+            self.screen.blit(high_score_label,(width/2-250,height/2+300))
+            self.screen.blit(high_score_text,(width/2+20,height/2+300))
         #adding alien images point values
             self.screen.blit(equals_400,(width/2, height/2+130))
             self.screen.blit(equals_200,(width/2, height/2+40))
