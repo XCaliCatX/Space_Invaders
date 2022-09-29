@@ -1,5 +1,6 @@
 import pygame as pg
 from pygame.sprite import Sprite, Group
+from barrier import Barriers
 from laser import Lasers
 from timer import Timer
 
@@ -69,12 +70,13 @@ class Alien(Sprite):
 
 
 class Aliens:
-    def __init__(self, game, screen, settings, lasers: Lasers, ship): 
+    def __init__(self, game, screen, settings, lasers: Lasers, barriers: Barriers, ship): 
         self.model_alien = Alien(settings=settings, screen=screen, type=1)
         self.game = game
         self.sb = game.scoreboard
         self.aliens = Group()
-        self.lasers = lasers.lasers    # a laser Group
+        self.lasers = lasers.lasers 
+        self.barriers = barriers.barriers   # a laser Group
         self.screen = screen
         self.settings = settings
         self.ship = ship
@@ -131,6 +133,7 @@ class Aliens:
                 alien.hit()
             self.sb.increment_score()
         # I tried to so a spritecollideany in here so ship would explode when it hit the fleet, didn't work
+
     def update(self): 
         self.check_fleet_edges()
         self.check_fleet_bottom()

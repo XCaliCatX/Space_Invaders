@@ -25,8 +25,9 @@ class Game:
         self.scoreboard = Scoreboard(game=self)  
         self.lasers = Lasers(settings=self.settings)
         self.ship = Ship(game=self, screen=self.screen, settings=self.settings, sound=self.sound, lasers=self.lasers)
-        self.aliens = Aliens(game=self, screen=self.screen, settings=self.settings, lasers=self.lasers, ship=self.ship)
         self.barriers = Barriers(game=self, settings=self.settings)
+        self.aliens = Aliens(game=self, screen=self.screen, settings=self.settings, lasers=self.lasers,barriers = self.barriers ,ship=self.ship)
+
         self.settings.initialize_speed_settings()
     def game_intro(self):
         self.sound.play_bg()
@@ -112,8 +113,8 @@ class Game:
         print('Resetting game...')
         self.lasers.reset()
         self.ship.reset()
-        self.aliens.reset()
         self.barriers.reset()
+        self.aliens.reset()
         # self.scoreboard.reset()
 
     def game_over(self):
@@ -132,8 +133,8 @@ class Game:
             gf.check_events(settings=self.settings, ship=self.ship)
             self.screen.fill(self.settings.bg_color)
             self.ship.update()
-            self.aliens.update()
             self.barriers.update()
+            self.aliens.update()
             self.lasers.update()
             self.scoreboard.update()
             pg.display.flip()
