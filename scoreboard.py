@@ -28,8 +28,8 @@ class Scoreboard:
         self.prep_score()
         
 
-    def increment_score(self): 
-        self.score += self.settings.alien_points
+    def increment_score(self, score_multi): 
+        self.score += (self.settings.alien_points * score_multi)
         self.prep_score()
 
     def prep_score(self): 

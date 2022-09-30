@@ -12,9 +12,10 @@ class Settings():
         self.laser_width = 5
         self.laser_height = 30
         self.laser_color = 255, 0, 0
-        self.lasers_every = 1
+        self.lasers_every = 10
 
-        self.alien_points = 50
+        self.aliens_shoot_every = 120
+        self.alien_points = 100
 
 # # TODO: set a ship_limit of 3
         self.ship_limit = 3         # total ships allowed in game before game over

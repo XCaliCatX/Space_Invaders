@@ -13,7 +13,9 @@ class Barrier(Sprite):
         # self.rect.y = self.rect.height
         # self.x = float(self.rect.x)
         
-    def hit(self): pass
+    def hit(self): 
+        print("Barrier hit")
+        self.kill()
     
     def update(self):
         self.draw()
@@ -24,10 +26,11 @@ class Barrier(Sprite):
         
         
 class Barriers:
-    def __init__(self, game, settings): # put lasers in
+    def __init__(self, game): # put lasers in
         self.game = game
-        self.settings = settings
+        self.settings = game.settings
         self.create_barriers()
+        
         
     def create_barriers(self):
         width = self.settings.screen_width / 10
