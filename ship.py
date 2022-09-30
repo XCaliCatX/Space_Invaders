@@ -10,48 +10,49 @@ class Ship(Sprite):
     
     ship_explosion_images = [pg.image.load(f'images/ship_exp_{n}.png') for n in range(12)]
     ship_image = [pg.image.load('images/ship2.2.png') for n in range(1)]
-    def __init__(self, game, settings, screen, sound, lasers=None):
+    
+    def __init__(self, game):
         super().__init__()
         self.game = game
-        self.screen = screen
-        self.settings = settings
-        self.sound = sound
-        self.ships_left = settings.ship_limit  
+        self.screen = game.screen
+        self.settings = game.settings
+        self.sound = game.sound
+        self.ships_left = game.settings.ship_limit  
         self.image = pg.image.load('images/ship2.2.png')
         self.rect = self.image.get_rect()
-        self.screen_rect = screen.get_rect()
+        self.screen_rect = game.screen.get_rect()
         self.posn = self.center_ship()    # posn is the centerx, bottom of the rect, not left, top
         self.vel = Vector()
-        self.lasers = lasers
+        self.lasers = game.ship_lasers
         self.lasers_attempted = 0
         self.shooting = False
-        self.dying = False
+        # self.dying = False
                 
         #the first one is for the ship (still image) and the second one is the explosion (animation)
         self.timer_normal = Timer(image_list = Ship.ship_image)
         self.timer_explosion = Timer(image_list = Ship.ship_explosion_images, is_loop=False)
     
         self.timer = self.timer_normal
+        
+        
     def center_ship(self):
         self.rect.centerx = self.screen_rect.centerx
         self.rect.bottom = self.screen_rect.bottom
         return Vector(self.rect.left, self.rect.top)
+    
     def reset(self): 
         self.timer = self.timer_normal
         # reset the explosion
-        self.timer_explosion.index = 0
+        self.timer_explosion.reset()
         self.vel = Vector()
         self.posn = self.center_ship()
         self.rect.left, self.rect.top = self.posn.x, self.posn.y
+        
     def die(self):
 # # TODO: reduce the ships_left, 
 # #       reset the game if ships > 0
 # #       game_over if the ships == 0
-        # Moved into update, otherwise it would dec the ship lives as it was exploding 
-        # self.ships_left -= 1
         self.timer = self.timer_explosion
-        # so the ship stops and explodes in place
-        # self.vel.y = 0
         print(f'Ship is dead! Only {self.ships_left} ships left')
         
     def update(self):
@@ -64,8 +65,8 @@ class Ship(Sprite):
         if self.shooting:
             self.lasers_attempted += 1
             if self.lasers_attempted % self.settings.lasers_every == 0:
-                self.lasers.shoot(settings=self.settings, screen=self.screen,
-                                ship=self, sound=self.sound)
+                self.lasers.shoot(game=self.game, x = self.rect.centerx, y=self.rect.top)
+        self.lasers.update()
         self.draw()
     def draw(self): 
         image = self.timer.image()

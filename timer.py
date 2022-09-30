@@ -16,7 +16,10 @@ class Timer:
       self.index += 1
       if self.is_loop: self.index %= self.frames
       self.last_time_switched = now
-
+      
+  def reset(self):
+    self.index =  0
+    
   def is_expired(self):
     return not self.is_loop and self.index >= len(self.image_list) - 1
 

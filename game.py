@@ -3,7 +3,7 @@ import pygame as pg
 from settings import Settings
 import game_functions as gf
 
-from laser import Lasers
+from laser import Lasers, LaserType
 from alien import Aliens
 from ship import Ship
 from sound import Sound
@@ -21,12 +21,14 @@ class Game:
         pg.display.set_caption("Alien Invasion")
 
         self.sound = Sound(bg_music="sounds/startrek.wav")
+        self.scoreboard = Scoreboard(game=self) 
+         
+        self.ship_lasers = Lasers(settings=self.settings, type=LaserType.SHIP)
+        self.alien_lasers = Lasers(settings=self.settings, type=LaserType.ALIEN)
         
-        self.scoreboard = Scoreboard(game=self)  
-        self.lasers = Lasers(settings=self.settings)
-        self.ship = Ship(game=self, screen=self.screen, settings=self.settings, sound=self.sound, lasers=self.lasers)
-        self.barriers = Barriers(game=self, settings=self.settings)
-        self.aliens = Aliens(game=self, screen=self.screen, settings=self.settings, lasers=self.lasers,barriers = self.barriers ,ship=self.ship)
+        self.ship = Ship(game=self)
+        self.barriers = Barriers(game=self)
+        self.aliens = Aliens(game=self)
 
         self.settings.initialize_speed_settings()
     def game_intro(self):
@@ -119,7 +121,7 @@ class Game:
 
     def reset(self):
         print('Resetting game...')
-        self.lasers.reset()
+        # self.lasers.reset()
         self.ship.reset()
         self.barriers.reset()
         self.aliens.reset()
@@ -143,7 +145,7 @@ class Game:
             self.ship.update()
             self.barriers.update()
             self.aliens.update()
-            self.lasers.update()
+            # self.lasers.update()
             self.scoreboard.update()
             pg.display.flip()
 
