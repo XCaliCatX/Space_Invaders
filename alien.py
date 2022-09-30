@@ -176,13 +176,26 @@ class Aliens:
         collisions = pg.sprite.groupcollide(self.aliens, self.ship_lasers, False, True)  
         if collisions:
             for alien in collisions:
-                alien.hit()   
+                alien.hit()  
+        collisions = pg.sprite.groupcollide(self.aliens_lasers.lasers, self.ship_lasers,False,True) 
+        if collisions:
+            for laser in collisions:
+                self.aliens_lasers.lasers.remove()
+                self.ship_lasers.remove()
         
         # Ship hits alien lasers
         collisions = pg.sprite.spritecollide(self.ship, self.aliens_lasers.lasers, True)
         if collisions:
             self.ship.die() # Ship doesn't have a health bar, so skipped hit and went straight to die
-        
+        for barrier in self.barriers:
+            collisions = pg.sprite.spritecollide(barrier, self.aliens_lasers.lasers, True)
+            if collisions:
+                    self.game.barriers.hit(barrier)
+        for barrier in self.barriers:
+            collisions = pg.sprite.groupcollide(self.barriers, self.ship_lasers, False,True)
+            if collisions:
+                    self.game.barriers.hit(barrier)
+                    
         
     def update(self): 
         self.check_fleet_edges()

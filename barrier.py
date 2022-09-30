@@ -10,13 +10,18 @@ class Barrier(Sprite):
         self.screen = game.screen
         self.settings = game.settings
         self.rect = rect
+        self.health = 200
+        self.dead = False
         # self.rect.y = self.rect.height
         # self.x = float(self.rect.x)
         
     def hit(self): 
         print("Barrier hit")
-        self.kill()
-    
+        self.health-=50
+        if self.health <= 0:
+            self.dead = True
+        return self.dead
+
     def update(self):
         self.draw()
         
@@ -37,7 +42,10 @@ class Barriers:
         height = 2.0 * width / 3.0
         top = self.settings.screen_height - 2 * height
         self.barriers = [Barrier(game=self.game, rect=pg.Rect(x * 2 * width + 1.5 * width, top, width, height)) for x in range(4)]
-        
+    def hit(self, barrier):
+        dead = barrier.hit()
+        if dead:
+            self.barriers.remove(barrier)
     def reset(self):
         self.create_barriers()
     

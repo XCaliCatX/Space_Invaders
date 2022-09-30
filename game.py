@@ -51,7 +51,7 @@ class Game:
         smallfont = pg.font.SysFont('Corbel',35)
         largefont=pg.font.Font('space_invaders.ttf', 60)
         smallspacefont=pg.font.Font('space_invaders.ttf', 35)
-        point_values = pg.font.Font('space_invaders.ttf',30)
+        point_values = pg.font.Font('space_invaders.ttf',30) 
         with open('high_score.txt','r+') as file:
                 high_score = file.read()  
         # rendering a text written in 
