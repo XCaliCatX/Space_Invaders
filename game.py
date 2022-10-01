@@ -75,6 +75,7 @@ class Game:
         alienblue=pg.image.load("images/alien20.png")
         alienteal = pg.image.load("images/alien10.png")
         alienufo = pg.image.load("images/alien30.png")
+        bg = pg.image.load("images/spacebackground.png")
         while True: 
             for ev in pg.event.get(): 
                 if ev.type == pg.QUIT: 
@@ -89,6 +90,7 @@ class Game:
                         self.play()
         # fills the screen with a color 
             self.screen.fill((0,0,0)) 
+            self.screen.blit(bg,(0,0))
       
         # stores the (x,y) coordinates into 
         # the variable as a tuple 
