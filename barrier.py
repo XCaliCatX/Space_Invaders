@@ -12,12 +12,20 @@ class Barrier(Sprite):
         self.rect = rect
         self.health = health
         self.dead =self.dying= False
+        self.curve1 = 0
+        self.curve2 = 20
         # self.rect.y = self.rect.height
         # self.x = float(self.rect.x)
         self.remake()
         
     def hit(self): 
         self.health-=50
+        if self.health == 150:
+            self.curve2=25
+        if self.health ==100:
+            self.curve2 = 30
+        if self.health ==50:
+            self.curve2 = 40
         if self.health <= 0:
             self.dead = True
             
@@ -30,7 +38,7 @@ class Barrier(Sprite):
         self.draw()
         
     def draw(self):
-        pg.draw.rect(self.screen, Barrier.color, self.rect, 0, 20)
+        pg.draw.rect(self.screen, Barrier.color, self.rect,self.curve1,self.curve2)
         pg.draw.circle(self.screen, self.settings.bg_color, (self.rect.centerx, self.rect.bottom), self.rect.width/5)
         
         
