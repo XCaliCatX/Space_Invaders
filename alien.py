@@ -4,8 +4,6 @@ from barrier import Barriers
 from laser import Lasers
 from timer import Timer
 from random import randint
-
-
 class Alien(Sprite):
     # alien_images = []
     # for n in range(2):
@@ -26,18 +24,18 @@ class Alien(Sprite):
 
     alien_explosion_images = [pg.image.load(f'images/aExplosion{n}.png') for n in range(3)]
     
-    ufo_score0 = [pg.image.load(f'images/ufo_score0{n}.png') for n in range(5)]
-    ufo_score1 = [pg.image.load(f'images/ufo_score1{n}.png') for n in range(5)]
-    ufo_score2 = [pg.image.load(f'images/ufo_score2{n}.png') for n in range(5)]
-    ufo_score3 = [pg.image.load(f'images/ufo_score3{n}.png') for n in range(5)]
-    ufo_score4 = [pg.image.load(f'images/ufo_score4{n}.png') for n in range(5)]
-    score_timers = {0 : Timer(image_list=ufo_score0, is_loop=False),
-                    1 : Timer(image_list=ufo_score1, is_loop=False),
-                    2 : Timer(image_list=ufo_score2, is_loop=False),
-                    3 : Timer(image_list=ufo_score3, is_loop=False),
-                    4 : Timer(image_list=ufo_score4, is_loop=False)}
+    ufo_score0 = [pg.transform.rotozoom(pg.image.load(f'images/ufo_score0{n}.png'), 0, 2) for n in range(5)]
+    ufo_score1 = [pg.transform.rotozoom(pg.image.load(f'images/ufo_score1{n}.png'), 0, 2) for n in range(5)]
+    ufo_score2 = [pg.transform.rotozoom(pg.image.load(f'images/ufo_score2{n}.png'), 0, 2) for n in range(5)]
+    ufo_score3 = [pg.transform.rotozoom(pg.image.load(f'images/ufo_score3{n}.png'), 0, 2) for n in range(5)]
+    ufo_score4 = [pg.transform.rotozoom(pg.image.load(f'images/ufo_score4{n}.png'), 0, 2) for n in range(5)]
+    score_timers = {0 : Timer(image_list=ufo_score0, is_loop= False),
+                    1 : Timer(image_list=ufo_score1, is_loop= False),
+                    2 : Timer(image_list=ufo_score2, is_loop= False),
+                    3 : Timer(image_list=ufo_score3, is_loop= False),
+                    4 : Timer(image_list=ufo_score4, is_loop= False)}
 
-    def __init__(self, game, type, multi):
+    def __init__(self, game, type):
         super().__init__()
         self.screen = game.screen
         self.settings = game.settings
@@ -46,7 +44,7 @@ class Alien(Sprite):
         self.rect.y = self.rect.height
         self.x = float(self.rect.x)
         self.type = type
-        self.multi = multi
+        self.multi = randint(0, 4)
         self.sb = game.scoreboard
         
         self.dying = self.dead = False
@@ -58,9 +56,6 @@ class Alien(Sprite):
         self.timer_explosion = Timer(image_list=Alien.alien_explosion_images, is_loop=False)
         self.timer_show_score = Alien.score_timers[self.multi]
         self.timer = self.timer_normal                                    
-
-    def reset(self): pass
-        
     
     def check_edges(self): 
         screen_rect = self.screen.get_rect()
@@ -85,8 +80,8 @@ class Alien(Sprite):
                 score_multi = 1     # 100 points
             
             if self.type == 3:      # ufo
-                score_multi = randint(1, 5)     # 1/2/3/4/500 points
-                self.multi = score_multi - 1
+                score_multi = self.multi + 1
+                print(score_multi)
                 
             self.sb.increment_score(score_multi)
             
@@ -95,16 +90,19 @@ class Alien(Sprite):
             if self.type == 3:
                 self.timer.reset()
                 self.timer = self.timer_show_score
-                self.timer_explosion.reset()
-                self.timer.reset()
-            self.kill()
+                if self.timer.is_expired():
+                    self.kill()
+                    self.timer_show_score.reset()
+            else:
+                self.kill()
         settings = self.settings
         if self.type != 3:
             self.x += (settings.alien_speed_factor * settings.fleet_direction)
         else:
             self.x += settings.alien_speed_factor
         self.rect.x = self.x
-        self.draw()
+        if not self.timer.is_expired(): # Done to prevent out of index error when printing the ufo score
+            self.draw()
         
     def draw(self): 
         image = self.timer.image()
@@ -116,7 +114,7 @@ class Alien(Sprite):
 
 class Aliens:
     def __init__(self, game): 
-        self.model_alien = Alien(game=game, type=1, multi=1)
+        self.model_alien = Alien(game=game, type=1)
         self.game = game
         self.sb = game.scoreboard
         self.aliens = Group()
@@ -174,8 +172,8 @@ class Aliens:
         self.ufos.add(ufo)
     
     def spawn_ufo(self):
-        can_spawn = 120
-        spawn_try = randint(0, 130)
+        can_spawn = 9200
+        spawn_try = randint(0, 9300)
         if spawn_try % can_spawn == 0:
             self.make_ufo()
     

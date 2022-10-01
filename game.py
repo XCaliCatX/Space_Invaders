@@ -121,11 +121,11 @@ class Game:
 
     def reset(self):
         print('Resetting game...')
-        # self.lasers.reset()
+        #self.lasers.reset()
         self.ship.reset()
         self.barriers.reset()
         self.aliens.reset()
-        # self.scoreboard.reset()
+        #self.scoreboard.reset()
 
     def game_over(self):
         print('All ships gone: game over!')

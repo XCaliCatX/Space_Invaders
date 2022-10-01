@@ -14,7 +14,7 @@ class Settings():
         self.laser_color = 255, 0, 0
         self.lasers_every = 10
 
-        self.aliens_shoot_every = 12000
+        self.aliens_shoot_every = 1200
         self.alien_points = 100
 
 # # TODO: set a ship_limit of 3
