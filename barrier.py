@@ -17,9 +17,7 @@ class Barrier(Sprite):
         self.remake()
         
     def hit(self): 
-        print("Barrier hit")
         self.health-=50
-        print(self.health)
         if self.health <= 0:
             self.dead = True
             

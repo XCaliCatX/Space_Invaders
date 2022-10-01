@@ -172,7 +172,7 @@ class Aliens:
         self.ufos.add(ufo)
     
     def spawn_ufo(self):
-        can_spawn = 500
+        can_spawn = 4000
         spawn_try = randint(0, 9300)
         if spawn_try % can_spawn == 0:
             self.make_ufo()
@@ -238,13 +238,11 @@ class Aliens:
         collisions = pg.sprite.groupcollide(self.barriers, self.aliens_lasers.lasers, False, True)
         if collisions:
             for barrier in collisions:
-                print(barrier)
                 barrier.hit()
         #ship lasers hit barrier
         collisions = pg.sprite.groupcollide(self.barriers, self.ship_lasers, False,True)
         if collisions:   
             for barrier in collisions:
-                print(barrier)
                 barrier.hit()
                     
         
