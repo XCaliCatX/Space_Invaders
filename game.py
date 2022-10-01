@@ -27,7 +27,7 @@ class Game:
         self.alien_lasers = Lasers(settings=self.settings, type=LaserType.ALIEN)
         
         self.ship = Ship(game=self)
-        self.barriers = Barriers(game=self)
+        self.barriers = Barriers(game=self)  
         self.aliens = Aliens(game=self)
 
         self.settings.initialize_speed_settings()
