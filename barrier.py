@@ -21,13 +21,9 @@ class Barrier(Sprite):
         self.health-=50
         print(self.health)
         if self.health <= 0:
-            self.dying = True
-        return self.dying
-
-    def destroyed(self):
-        if self.dying:
             self.dead = True
-    
+            
+
     def remake(self):
         self.dead = False
         self.dying = False
@@ -44,6 +40,7 @@ class Barriers:
     def __init__(self, game): 
         self.game = game
         self.settings = game.settings
+        self.barriers = Group()
         self.create_barriers()
         self.dead =self.dying= False
         
@@ -51,24 +48,28 @@ class Barriers:
         width = self.settings.screen_width / 10
         height = 2.0 * width / 3.0
         top = self.settings.screen_height - 2 * height
-        self.barriers = [Barrier(game=self.game, health = 200, rect=pg.Rect(x * 2 * width + 1.5 * width, top, width, height)) for x in range(4)]
-        print(self.barriers)
+        for i in range(4):
+            barrier = Barrier(game=self.game, health = 200, rect=pg.Rect(i * 2 * width + 1.5 * width, top, width, height))
+            self.barriers.add(barrier)
+            print(self.barriers)
         
-    def hit(self, barrier):
-        dying = barrier.hit()
-        if barrier.destroyed(): # So we don't get errors when the lasers hit a barrier that was destroyed
-            return
-        if dying:
-            self.barriers.remove(barrier)
-            
+    
     def reset(self):
+        for barrier in self.barriers.sprites():
+            if barrier.dead:      # set True once the explosion animation has completed
+                barrier.remove()
+
         self.create_barriers()
         
     
     def update(self):
-        for barrier in self.barriers:
+        for barrier in self.barriers.sprites():
+            if barrier.dead:      # set True once the explosion animation has completed
+                self.barriers.remove(barrier)
+            barrier.update()
+        for barrier in self.barriers.sprites():
             barrier.update()
     
     def draw(self):
-        for barrier in self.barriers:
+        for barrier in self.barriers.sprites():
             barrier.draw()

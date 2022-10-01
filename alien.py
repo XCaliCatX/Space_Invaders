@@ -172,7 +172,7 @@ class Aliens:
         self.ufos.add(ufo)
     
     def spawn_ufo(self):
-        can_spawn = 9200
+        can_spawn = 500
         spawn_try = randint(0, 9300)
         if spawn_try % can_spawn == 0:
             self.make_ufo()
@@ -234,14 +234,18 @@ class Aliens:
         collisions = pg.sprite.spritecollide(self.ship, self.aliens_lasers.lasers, True)
         if collisions:
             self.ship.die() # Ship doesn't have a health bar, so skipped hit and went straight to die
-        for barrier in self.barriers:
-            collisions = pg.sprite.spritecollide(barrier, self.aliens_lasers.lasers, True)
-            if collisions:
-                    self.game.barriers.hit(barrier)
-        for barrier in self.barriers:
-            collisions = pg.sprite.groupcollide(self.barriers, self.ship_lasers, False,True)
-            if collisions:
-                    self.game.barriers.hit(barrier)
+        #alien lasers hit barrier
+        collisions = pg.sprite.groupcollide(self.barriers, self.aliens_lasers.lasers, False, True)
+        if collisions:
+            for barrier in collisions:
+                print(barrier)
+                barrier.hit()
+        #ship lasers hit barrier
+        collisions = pg.sprite.groupcollide(self.barriers, self.ship_lasers, False,True)
+        if collisions:   
+            for barrier in collisions:
+                print(barrier)
+                barrier.hit()
                     
         
     def update(self): 

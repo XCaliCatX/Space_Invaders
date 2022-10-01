@@ -64,7 +64,7 @@ class Game:
         high_score_label = smallspacefont.render('High Score: ',True,white)
         high_score_text = smallspacefont.render(str(high_score), True,green)
         #point values
-        equals_400 = point_values.render('= 400',True, green)
+        equals_400 = point_values.render('= 400',True, green)  
         equals_200 = point_values.render('=200', True, green)
         equals_100 = point_values.render('=100', True, green)
         #images
@@ -140,8 +140,8 @@ class Game:
         
         while True:     # at the moment, only exits in gf.check_events if Ctrl/Cmd-Q pressed
 
-            gf.check_events(settings=self.settings, ship=self.ship)
-            self.screen.fill(self.settings.bg_color)
+            gf.check_events(settings=self.settings, ship=self.ship) 
+            self.screen.fill(self.settings.bg_color) 
             self.ship.update()
             self.barriers.update()
             self.aliens.update()
@@ -149,7 +149,7 @@ class Game:
             self.scoreboard.update()
             pg.display.flip()
 
-
+  
 def main():
     g = Game()
     g.game_intro()
@@ -157,4 +157,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main()  
