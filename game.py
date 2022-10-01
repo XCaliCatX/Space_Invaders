@@ -49,7 +49,7 @@ class Game:
         height = self.screen.get_height() 
         # defining a font 
         smallfont = pg.font.SysFont('Corbel',35)
-        largefont=pg.font.Font('space_invaders.ttf', 60)
+        largefont=pg.font.Font('space_invaders.ttf', 70)
         smallspacefont=pg.font.Font('space_invaders.ttf', 35)
         point_values = pg.font.Font('space_invaders.ttf',30) 
         with open('high_score.txt','r+') as file:
@@ -105,8 +105,8 @@ class Game:
             self.screen.blit(quit , (width/2+40,height/2+(height/4)))
             self.screen.blit(play,(width/2+-140,height/2+(height/4)))
         #adding title
-            self.screen.blit(space,(width/2-140, height/2-250))
-            self.screen.blit(invaders,(width/2-200, height/2-175))
+            self.screen.blit(space,(width/2-160, height/2-300))
+            self.screen.blit(invaders,(width/2-220, height/2-200))
             self.screen.blit(high_score_label,(width/2-250,height/2+300))
             self.screen.blit(high_score_text,(width/2+20,height/2+300))
         #adding alien images point values
