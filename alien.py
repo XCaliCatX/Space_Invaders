@@ -49,9 +49,11 @@ class Alien(Sprite):
     def check_edges(self): 
         screen_rect = self.screen.get_rect()
         return self.rect.right >= screen_rect.right or self.rect.left <= 0
+    
     def check_bottom_or_ship(self, ship):
         screen_rect = self.screen.get_rect()
         return self.rect.bottom >= screen_rect.bottom or self.rect.colliderect(ship.rect)
+    
     def hit(self):
         if not self.dying:
             self.dying = True 
@@ -69,6 +71,7 @@ class Alien(Sprite):
             if self.type == 3:      # ufo
                 score_multi = 5     # temp turn it into random when get ufo implemented
             self.sb.increment_score(score_multi)
+            
     def update(self): 
         if self.timer == self.timer_explosion and self.timer.is_expired():
             self.kill()
@@ -90,6 +93,7 @@ class Aliens:
         self.game = game
         self.sb = game.scoreboard
         self.aliens = Group()
+        self.ufos = Group()
         
         self.ship_lasers = game.ship_lasers.lasers # a laser Group
         self.aliens_lasers = game.alien_lasers
@@ -135,12 +139,23 @@ class Aliens:
             for alien_number in range(number_aliens_x):
                    self.create_alien(alien_number, row_number)
     
+    def make_ufo(self):
+        ufo = Alien(game=self.game, type=3)
+        ufo.rect.x = 0
+        ufo.rect.y = ufo.rect.height + 1
+        self.aliens.add(ufo)
+    
+    def spawn_ufo(self):
+        can_spawn = 12
+        spawn_try = randint(0, 13)
+        if spawn_try % can_spawn == 0:
+            self.make_ufo()
+    
     def check_fleet_edges(self):
         for alien in self.aliens.sprites(): 
             if alien.check_edges():
                 self.change_fleet_direction()
                 break
-            
     
     def check_fleet_bottom(self):
         for alien in self.aliens.sprites():
@@ -202,6 +217,7 @@ class Aliens:
         self.check_fleet_bottom()
         self.check_collisions()
         self.check_fleet_empty()
+        self.spawn_ufo()
         self.shoot_from_random_alien()
         for alien in self.aliens.sprites():
             if alien.dead:      # set True once the explosion animation has completed
