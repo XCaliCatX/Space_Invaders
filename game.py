@@ -51,6 +51,8 @@ class Game:
         smallfont = pg.font.SysFont('Corbel',35)
         largefont=pg.font.Font('space_invaders.ttf', 70)
         smallspacefont=pg.font.Font('space_invaders.ttf', 35)
+        small_titlefont = pg.font.Font('Gloomy Things.ttf', 90)
+        large_titlefont = pg.font.Font('Gloomy Things.ttf', 150)
         point_values = pg.font.Font('space_invaders.ttf',30) 
         with open('high_score.txt','r+') as file:
                 high_score = file.read()  
@@ -59,8 +61,8 @@ class Game:
         #Words
         quit = smallfont.render('quit' , True , color) 
         play = smallfont.render('play' , True , color)
-        space = largefont.render('Space', True, white)
-        invaders = largefont.render('INVADERS',True, green)
+        space = small_titlefont.render('Space', True, white)
+        invaders = large_titlefont.render('INVADERS',True, green)
         high_score_label = smallspacefont.render('High Score: ',True,white)
         high_score_text = smallspacefont.render(str(high_score), True,green)
         #point values
@@ -105,8 +107,8 @@ class Game:
             self.screen.blit(quit , (width/2+40,height/2+(height/4)))
             self.screen.blit(play,(width/2+-140,height/2+(height/4)))
         #adding title
-            self.screen.blit(space,(width/2-160, height/2-300))
-            self.screen.blit(invaders,(width/2-220, height/2-200))
+            self.screen.blit(space,(width/2-160, height/2-350))
+            self.screen.blit(invaders,(width/2-290, height/2-300))
             self.screen.blit(high_score_label,(width/2-250,height/2+300))
             self.screen.blit(high_score_text,(width/2+20,height/2+300))
         #adding alien images point values
