@@ -65,12 +65,14 @@ class Game:
         high_score_text = smallspacefont.render(str(high_score), True,green)
         #point values
         equals_400 = point_values.render('= 400',True, green)  
-        equals_200 = point_values.render('=200', True, green)
-        equals_100 = point_values.render('=100', True, green)
+        equals_200 = point_values.render('= 200', True, green)
+        equals_100 = point_values.render('= 100', True, green)
+        equals_ques = point_values.render('= ???',True, green)
         #images
         aliengreen=pg.image.load("images/alien01.png")
         alienblue=pg.image.load("images/alien20.png")
         alienteal = pg.image.load("images/alien10.png")
+        alienufo = pg.image.load("images/alien30.png")
         while True: 
             for ev in pg.event.get(): 
                 if ev.type == pg.QUIT: 
@@ -108,13 +110,15 @@ class Game:
             self.screen.blit(high_score_label,(width/2-250,height/2+300))
             self.screen.blit(high_score_text,(width/2+20,height/2+300))
         #adding alien images point values
-            self.screen.blit(equals_400,(width/2, height/2+130))
-            self.screen.blit(equals_200,(width/2, height/2+40))
-            self.screen.blit(equals_100,(width/2, height/2-40))
+            self.screen.blit(equals_400,(width/2, height/2+45))
+            self.screen.blit(equals_200,(width/2, height/2-20))
+            self.screen.blit(equals_100,(width/2, height/2-90))
+            self.screen.blit(equals_ques,(width/2, height/2+105))
         #adding alien images
-            self.screen.blit(aliengreen,(width/2-160,height/2+125))
-            self.screen.blit(alienblue,(width/2-165, height/2-50))
-            self.screen.blit(alienteal,(width/2-160, height/2+30))
+            self.screen.blit(aliengreen,(width/2-160,height/2+40))
+            self.screen.blit(alienblue,(width/2-165, height/2-100))
+            self.screen.blit(alienteal,(width/2-160, height/2-30))
+            self.screen.blit(alienufo,(width/2-160, height/2+100))
         # updates the frames of the game 
             pg.display.update() 
         
