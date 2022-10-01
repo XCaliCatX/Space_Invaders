@@ -110,15 +110,15 @@ class Game:
             self.screen.blit(quit , (width/2+40,height/2+(height/4)))
             self.screen.blit(play,(width/2+-140,height/2+(height/4)))
         #adding title
-            self.screen.blit(space,(width/2-160, height/2-350))
-            self.screen.blit(invaders,(width/2-290, height/2-300))
+            self.screen.blit(space,(width/2-140, height/2-350))
+            self.screen.blit(invaders,(width/2-260, height/2-300))
             self.screen.blit(high_score_label,(width/2-250,height/2+300))
             self.screen.blit(high_score_text,(width/2+20,height/2+300))
         #adding alien images point values
-            self.screen.blit(equals_400,(width/2, height/2+45))
-            self.screen.blit(equals_200,(width/2, height/2-20))
-            self.screen.blit(equals_100,(width/2, height/2-90))
-            self.screen.blit(equals_ques,(width/2, height/2+105))
+            self.screen.blit(equals_400,(width/2+20, height/2+45))
+            self.screen.blit(equals_200,(width/2+20, height/2-20))
+            self.screen.blit(equals_100,(width/2+20, height/2-90))
+            self.screen.blit(equals_ques,(width/2+20, height/2+105))
         #adding alien images
             self.screen.blit(aliengreen,(width/2-160,height/2+40))
             self.screen.blit(alienblue,(width/2-165, height/2-100))
