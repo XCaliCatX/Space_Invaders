@@ -37,6 +37,7 @@ class Game:
         color = (0,0,0)
         white= (250,250,250) 
         green= (118,238,0)
+        
         # light shade of the button 
         color_light = (202,255,112) 
         # dark shade of the button 
@@ -67,7 +68,7 @@ class Game:
         high_score_text = smallspacefont.render(str(high_score), True,green)
         #point values
         equals_400 = point_values.render('= 400',True, green)  
-        equals_200 = point_values.render('= 200', True, green)
+        equals_200 = point_values.render('= 200', True,green)
         equals_100 = point_values.render('= 100', True, green)
         equals_ques = point_values.render('= ???',True, green)
         #images
@@ -149,7 +150,8 @@ class Game:
         while True:     # at the moment, only exits in gf.check_events if Ctrl/Cmd-Q pressed
 
             gf.check_events(settings=self.settings, ship=self.ship) 
-            self.screen.fill(self.settings.bg_color) 
+            self.screen.fill(self.settings.bg_color)
+            
             self.ship.update()
             self.barriers.update()
             self.aliens.update()
