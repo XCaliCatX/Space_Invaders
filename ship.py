@@ -8,7 +8,7 @@ from sys import exit
 
 class Ship(Sprite):
     
-    ship_explosion_images = [pg.image.load(f'images/ship_exp_{n}.png') for n in range(12)]
+    ship_explosion_images = [pg.transform.rotozoom(pg.image.load(f'images/ship_exp_{n}.png'), 0, 0.5) for n in range(12)]
     ship_image = [pg.image.load('images/ship2.3.png') for n in range(1)]
     
     def __init__(self, game):
