@@ -154,8 +154,9 @@ class Game:
             pg.mixer.music.stop()
             self.sound = Sound(bg_music="sounds/enemy_theme_v2.wav")
             self.sound.play_bg()
+        
     
-    def play(self):
+    def play(self):     
         self.sound.play_bg()
         
         while True:     # at the moment, only exits in gf.check_events if Ctrl/Cmd-Q pressed

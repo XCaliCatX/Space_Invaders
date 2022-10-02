@@ -62,11 +62,15 @@ class Alien(Sprite):
     def check_edges(self): 
         screen_rect = self.screen.get_rect()
         return self.rect.right >= screen_rect.right or self.rect.left <= 0
-    
+    def check_ufo_edges(self):
+        screen_rect = self.screen.get_rect()
+        print("ufo edges: ",self.rect.right >= screen_rect.right or self.rect.left <= 0 )
+        return self.rect.right >= screen_rect.right or self.rect.left <= 0
+    def ufo_dead(self):
+        self.dying = self.dead = True
     def check_bottom_or_ship(self, ship):
         screen_rect = self.screen.get_rect()
         return self.rect.bottom >= screen_rect.bottom or self.rect.colliderect(ship.rect)
-    
     def hit(self):
         if not self.dying:
             self.dying = True 
@@ -132,7 +136,8 @@ class Aliens:
         self.aliens_half = 0
         self.aliens_losing = False
         self.song_changed = False
-        
+        self.ufo_sound = pg.mixer.Sound("sounds/ufo_sounds.wav")
+        self.channel1 = pg.mixer.Channel(0)
         self.create_fleet()
         
     def get_number_aliens_x(self, alien_width):
@@ -174,15 +179,19 @@ class Aliens:
     def remaining_check(self):
         if self.alien_count <= self.aliens_half:
             self.aliens_losing = True
-    
+    def check_ufo_edges(self):
+        for ufo in self.ufos:
+            if ufo.check_ufo_edges():
+                ufo.ufo_dead()
+                print("Ufo dead" ,ufo.dead)
     def make_ufo(self):
-        ufo = Alien(game=self.game, type=3)
-        ufo_width = ufo.rect.width
-        ufo.rect.x = ufo_width + 1 * ufo_width
-        ufo.rect.y = ufo.rect.height
-        self.ufos.add(ufo)
-        ufo_sound = pg.mixer.Sound("sounds/ufo_sounds.wav")
-        pg.mixer.Sound.play(ufo_sound, 1)        
+        if not self.ufos:
+            ufo = Alien(game=self.game, type=3)
+            ufo_width = ufo.rect.width
+            ufo.rect.x = ufo_width + 1 * ufo_width
+            ufo.rect.y = ufo.rect.height
+            self.ufos.add(ufo)
+            self.channel1.play(self.ufo_sound, loops=-1)   
     
     def spawn_ufo(self):
         can_spawn = 1000
@@ -270,6 +279,7 @@ class Aliens:
         self.check_fleet_bottom()
         self.check_collisions()
         self.check_fleet_empty()
+        self.check_ufo_edges()
         self.spawn_ufo()
         print(self.alien_count)
         self.remaining_check()
@@ -282,6 +292,8 @@ class Aliens:
         for ufo in self.ufos.sprites():
             if ufo.dead:      # set True once the explosion animation has completed
                 ufo.remove()
+                self.channel1.stop()
+
             ufo.update() 
         self.aliens_lasers.update()
     def draw(self): 
