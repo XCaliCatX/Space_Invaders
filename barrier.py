@@ -14,8 +14,6 @@ class Barrier(Sprite):
         self.dead =self.dying= False
         self.curve1 = 0
         self.curve2 = 20
-        # self.rect.y = self.rect.height
-        # self.x = float(self.rect.x)
         self.remake()
         
     def hit(self): 

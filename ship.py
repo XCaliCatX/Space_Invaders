@@ -73,4 +73,3 @@ class Ship(Sprite):
         rect = image.get_rect()
         rect.left, rect.top = self.rect.left, self.rect.top
         self.screen.blit(image, rect)
-        # self.screen.blit(self.image, self.rect)
