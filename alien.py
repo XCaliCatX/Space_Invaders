@@ -150,6 +150,10 @@ class Aliens:
             
     def reset(self):
         self.aliens.empty()
+        self.ufos.empty()
+        self.ufos.update()
+
+        self.channel1.stop()
         self.create_fleet()
         self.aliens_lasers.reset()
         
