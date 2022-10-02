@@ -23,16 +23,11 @@ class Sound:
 
     def shoot_laser(self, type): 
         pg.mixer.Sound.play(self.sounds['alienlaser' if type == LaserType.ALIEN else 'shiplaser'])
-    
-    #def ufo_approach(self, type):
-    #    if type == 3:
-    #        pg.mixer.Sound.play(self.sounds['ufo'])
-    #        pg.mixer.music.set_volume(2.5)
         
     def gameover(self): 
         self.stop_bg() 
         pg.mixer.music.load('sounds/game_over.wav')
-        pg.mixer.music.set_volume(1.5)
+        pg.mixer.music.set_volume(2.0)
         self.play_bg()
         time.sleep(3.5)
         self.stop_bg()
