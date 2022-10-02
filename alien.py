@@ -136,6 +136,7 @@ class Aliens:
         self.song_changed = False
         self.ufo_sound = pg.mixer.Sound("sounds/ufo_sounds.wav")
         self.channel1 = pg.mixer.Channel(0)
+        self.channel1.set_volume(0.6)
         self.create_fleet()
         
     def get_number_aliens_x(self, alien_width):
@@ -196,7 +197,7 @@ class Aliens:
             self.channel1.play(self.ufo_sound, loops=-1)   
     
     def spawn_ufo(self):
-        can_spawn = 2000
+        can_spawn = 20
         spawn_try = randint(0, 8800)
         if spawn_try % can_spawn == 0:
             self.make_ufo()

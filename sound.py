@@ -25,12 +25,12 @@ class Sound:
         pg.mixer.Sound.play(self.sounds['alienlaser' if type == LaserType.ALIEN else 'shiplaser'])
         
     def gameover(self): 
-        self.stop_bg() 
+        self.stop_bg()
         pg.mixer.music.load('sounds/game_over.wav')
-        pg.mixer.music.set_volume(2.0)
+        pg.mixer.music.set_volume(6.0)
         self.play_bg()
         time.sleep(3.5)
         self.stop_bg()
         pg.mixer.music.load('sounds/enemy_theme_v1.wav')
-        pg.mixer.music.set_volume(2.0)
+        pg.mixer.music.set_volume(6.0)
         self.play_bg()

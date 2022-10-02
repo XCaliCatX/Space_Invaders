@@ -142,7 +142,9 @@ class Game:
 
     def game_over(self):
         print('All ships gone: game over!')
+        self.aliens.channel1.stop()
         self.sound.gameover()
+
         # this and line right after are so game can have repeat plays
         self.reset()
         self.ship.ships_left = 3
