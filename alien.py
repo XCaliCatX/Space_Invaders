@@ -241,6 +241,7 @@ class Aliens:
         if collisions:
             for ufo in collisions:
                 ufo.hit()
+                self.channel1.stop()
         # lasers hit each other
         collisions = pg.sprite.groupcollide(self.aliens_lasers.lasers, self.ship_lasers,False,True) 
         if collisions:
