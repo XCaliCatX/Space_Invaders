@@ -267,7 +267,6 @@ class Aliens:
         if collisions:
             for barrier in collisions:
                 barrier.hit()
-                print("alien hit barrier")
         #ship lasers hit barrier
         collisions = pg.sprite.groupcollide(self.barriers, self.ship_lasers, False,True)
         if collisions:   
