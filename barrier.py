@@ -55,7 +55,6 @@ class Barriers:
         for i in range(4):
             barrier = Barrier(game=self.game, health = 200, rect=pg.Rect(i * 2 * width + 1.5 * width, top, width, height))
             self.barriers.add(barrier)
-            print(self.barriers)
         
     
     def reset(self):
